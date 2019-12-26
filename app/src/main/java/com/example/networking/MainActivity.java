@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -28,6 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG="MainActivity";
+    String input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 UpdateTextView();
             }
         });
+        Button bbtnEnter =findViewById(R.id.btnEnter);
+        final EditText text = findViewById(R.id.editText2);
+        bbtnEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input=text.getText().toString();
+
+            }
+        });
     }
 
     private void UpdateTextView() {
@@ -47,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //network call :
 
         NetworkAsync nAsync = new NetworkAsync();
-        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q=therealsanjeev");
+        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q="+input);
 
     }
     class NetworkAsync extends AsyncTask<String,Void,String>{
