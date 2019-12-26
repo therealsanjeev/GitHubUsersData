@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //network call :
 
         NetworkAsync nAsync = new NetworkAsync();
-        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q=harshit");
+        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q=therealsanjeev");
 
     }
     class NetworkAsync extends AsyncTask<String,Void,String>{
