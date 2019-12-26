@@ -14,18 +14,10 @@
         android:textColor="@color/colorPrimaryDark"
         android:text="Get data" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tvData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Wait For Data!" />
-
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
