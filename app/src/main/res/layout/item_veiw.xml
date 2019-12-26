@@ -12,6 +12,7 @@
     <TextView
         android:padding="4dp"
         android:textSize="24sp"
+        android:autoLink="web"
         android:id="@+id/tvVeiwUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
