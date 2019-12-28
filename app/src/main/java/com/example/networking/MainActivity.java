@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,11 +24,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.net.ssl.HttpsURLConnection;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static final String TAG="MainActivity";
     String input;
 
     @Override
@@ -42,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
                 UpdateTextView();
             }
         });
-        Button bbtnEnter =findViewById(R.id.btnEnter);
+        Button btnEnter =findViewById(R.id.btnEnter);
         final EditText text = findViewById(R.id.editText2);
-        bbtnEnter.setOnClickListener(new View.OnClickListener() {
+        btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 input=text.getText().toString();
@@ -53,12 +55,50 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void UpdateTextView() {
-        //
-        //network call :
+    void makeNetworkCall(String url) throws IOException {
 
-        NetworkAsync nAsync = new NetworkAsync();
-        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q="+input);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                String result  =response.body().string();
+
+                ArrayList<GithubUser> users= parseJson(result);
+                final GithubUsersAdapter githubUsersAdapter = new GithubUsersAdapter(users);
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView recyclerView =findViewById(R.id.rvList);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                        recyclerView.setAdapter(githubUsersAdapter);
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+    private void UpdateTextView() {
+        //network call :
+//        NetworkAsync nAsync = new NetworkAsync();
+//        nAsync.execute("https://www.google.com","https://api.github.com/search/users?q="+input);
+        try {
+            makeNetworkCall("https://api.github.com/search/users?q="+input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     class NetworkAsync extends AsyncTask<String,Void,String>{
