@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-        android:padding="4dp"
-        android:textSize="24sp"
-        android:id="@+id/tvlogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:padding="4dp"
-        android:textSize="24sp"
-        android:autoLink="web"
-        android:id="@+id/tvVeiwUrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:padding="4dp"
-        android:textSize="24sp"
-        android:id="@+id/tvScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/ivid"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/lltext"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:padding="4dp"
+            android:textSize="24sp"
+            android:id="@+id/tvlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:padding="4dp"
+            android:textSize="24sp"
+            android:autoLink="web"
+            android:id="@+id/tvVeiwUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:padding="4dp"
+            android:textSize="24sp"
+            android:id="@+id/tvScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
